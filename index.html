@@ -1,0 +1,2012 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>编程科学 - 官方网站 | Programming Science Official Website</title>
+    <meta name="description" content="编程科学官方网站 - 从Python入门到项目实战的完整知识体系，Python进阶实战：从会写代码到能做项目">
+    <meta name="keywords" content="编程科学,Python入门,Python进阶,编程教程,项目实战,Programming Science">
+    <style>
+        /* ==================== 全局重置 ==================== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --china-red: #a8161c;
+            --china-red-dark: #8b1217;
+            --china-red-darker: #6b0e12;
+            --gold: #b8941f;
+            --gold-light: #d4af37;
+            --dark: #0a0a14;
+            --dark-light: #141428;
+            --text-primary: #1a1a2e;
+            --text-secondary: #4a4a5a;
+            --text-light: #6b6b7b;
+            --bg-light: #f7f7fa;
+            --bg-white: #ffffff;
+            --border: #e2e2e8;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Microsoft YaHei', 'PingFang SC', 'Hiragino Sans GB', 'SimSun', 'Songti SC', serif;
+            color: var(--text-primary);
+            background: var(--bg-white);
+            overflow-x: hidden;
+            line-height: 1.7;
+            font-size: 14px;
+        }
+
+        /* ==================== 二进制代码雨进入页 ==================== */
+        .intro-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #000;
+            z-index: 999999;
+            overflow: hidden;
+        }
+
+        .intro-overlay.fade-out {
+            animation: overlayFadeOut 1.2s ease forwards;
+        }
+
+        @keyframes overlayFadeOut {
+            0% { opacity: 1; }
+            100% { opacity: 0; visibility: hidden; }
+        }
+
+        #binaryCanvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .intro-center {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            z-index: 10;
+            opacity: 0;
+            transition: opacity 0.8s ease;
+        }
+
+        .intro-center.visible {
+            opacity: 1;
+        }
+
+        .intro-emblem {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 25px;
+            position: relative;
+        }
+
+        .intro-emblem-ring {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 2px solid transparent;
+            border-radius: 50%;
+        }
+
+        .intro-emblem-ring:nth-child(1) {
+            border-top-color: var(--china-red);
+            border-right-color: var(--gold);
+            animation: ringSpin1 2s linear infinite;
+        }
+
+        .intro-emblem-ring:nth-child(2) {
+            border-bottom-color: var(--gold);
+            border-left-color: var(--china-red);
+            animation: ringSpin2 2.5s linear infinite reverse;
+            transform: scale(0.82);
+        }
+
+        @keyframes ringSpin1 {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes ringSpin2 {
+            0% { transform: scale(0.82) rotate(0deg); }
+            100% { transform: scale(0.82) rotate(360deg); }
+        }
+
+        .intro-emblem-core {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 70px;
+            height: 70px;
+            background: radial-gradient(circle, var(--china-red) 0%, var(--china-red-darker) 100%);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 36px;
+            color: var(--gold-light);
+            box-shadow: 0 0 30px var(--china-red), 0 0 60px rgba(168, 22, 28, 0.5);
+            animation: corePulse 1.5s ease-in-out infinite;
+        }
+
+        @keyframes corePulse {
+            0%, 100% { box-shadow: 0 0 30px var(--china-red), 0 0 60px rgba(168, 22, 28, 0.5); }
+            50% { box-shadow: 0 0 50px var(--gold), 0 0 100px rgba(184, 148, 31, 0.6); }
+        }
+
+        .intro-title {
+            font-size: 42px;
+            font-weight: bold;
+            color: #fff;
+            letter-spacing: 10px;
+            margin-bottom: 8px;
+            text-shadow: 0 0 20px var(--china-red), 0 0 40px rgba(168, 22, 28, 0.5);
+            font-family: 'SimHei', 'Microsoft YaHei', sans-serif;
+        }
+
+        .intro-subtitle {
+            font-size: 14px;
+            color: var(--gold-light);
+            letter-spacing: 6px;
+            margin-bottom: 20px;
+        }
+
+        .intro-divider {
+            width: 250px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+            margin: 0 auto 20px;
+        }
+
+        .intro-progress {
+            width: 280px;
+            height: 3px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 2px;
+            margin: 0 auto;
+            overflow: hidden;
+        }
+
+        .intro-progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--china-red), var(--gold), var(--china-red));
+            background-size: 200% 100%;
+            border-radius: 2px;
+            width: 0;
+            animation: progressShine 1s linear infinite;
+            transition: width 0.3s ease;
+        }
+
+        @keyframes progressShine {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 200% 50%; }
+        }
+
+        .intro-percent {
+            color: var(--gold-light);
+            font-size: 13px;
+            margin-top: 12px;
+            letter-spacing: 2px;
+        }
+
+        .intro-status {
+            color: rgba(255,255,255,0.5);
+            font-size: 11px;
+            margin-top: 8px;
+            letter-spacing: 1px;
+        }
+
+        /* ==================== 顶部红色横幅 ==================== */
+        .top-banner {
+            background: linear-gradient(90deg, var(--china-red-darker) 0%, var(--china-red-dark) 30%, var(--china-red) 50%, var(--china-red-dark) 70%, var(--china-red-darker) 100%);
+            color: #fff;
+            padding: 7px 0;
+            font-size: 12px;
+            position: relative;
+            overflow: hidden;
+            border-bottom: 1px solid rgba(255,255,255,0.15);
+        }
+
+        .top-banner::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.12), transparent);
+            animation: bannerShine 5s ease-in-out infinite;
+        }
+
+        @keyframes bannerShine {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        .top-banner-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .top-banner-left {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+        }
+
+        .top-banner-right {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+        }
+
+        .top-banner a {
+            color: #fff;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .top-banner a:hover {
+            color: var(--gold-light);
+        }
+
+        .banner-sep {
+            color: rgba(255,255,255,0.3);
+        }
+
+        /* ==================== 头部Logo区域 ==================== */
+        .header {
+            background: var(--bg-white);
+            padding: 20px 0;
+            border-bottom: 4px solid var(--china-red);
+            position: relative;
+        }
+
+        .header::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--china-red) 0%, var(--gold) 30%, var(--gold) 70%, var(--china-red) 100%);
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+        }
+
+        .logo-emblem {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--china-red) 0%, var(--china-red-darker) 100%);
+            border-radius: 4px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 30px;
+            color: var(--gold-light);
+            box-shadow: 0 3px 15px rgba(168, 22, 28, 0.35);
+            position: relative;
+            border: 2px solid var(--gold);
+        }
+
+        .logo-text h1 {
+            font-size: 28px;
+            font-weight: bold;
+            color: var(--china-red);
+            letter-spacing: 4px;
+            margin-bottom: 4px;
+            font-family: 'SimHei', 'Microsoft YaHei', sans-serif;
+        }
+
+        .logo-text p {
+            font-size: 11px;
+            color: var(--text-secondary);
+            letter-spacing: 2px;
+        }
+
+        .header-contact {
+            text-align: right;
+            border-left: 2px solid var(--border);
+            padding-left: 25px;
+        }
+
+        .header-contact-title {
+            font-size: 11px;
+            color: var(--text-secondary);
+            margin-bottom: 4px;
+            letter-spacing: 1px;
+        }
+
+        .header-contact-email {
+            font-size: 15px;
+            color: var(--china-red);
+            font-weight: bold;
+            text-decoration: none;
+            transition: color 0.3s;
+            font-family: 'Consolas', monospace;
+        }
+
+        .header-contact-email:hover {
+            color: var(--gold);
+        }
+
+        /* ==================== 导航栏 ==================== */
+        .navbar {
+            background: linear-gradient(180deg, var(--china-red) 0%, var(--china-red-dark) 100%);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.25);
+            border-bottom: 3px solid var(--gold);
+        }
+
+        .navbar-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .nav-item {
+            padding: 15px 35px;
+            color: #fff;
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 500;
+            position: relative;
+            transition: all 0.3s;
+            letter-spacing: 3px;
+            border-right: 1px solid rgba(255,255,255,0.12);
+            font-family: 'SimHei', 'Microsoft YaHei', sans-serif;
+        }
+
+        .nav-item:first-child {
+            border-left: 1px solid rgba(255,255,255,0.12);
+        }
+
+        .nav-item::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 3px;
+            background: var(--gold);
+            transition: all 0.3s;
+            transform: translateX(-50%);
+        }
+
+        .nav-item:hover {
+            background: rgba(255,255,255,0.15);
+            color: var(--gold-light);
+        }
+
+        .nav-item:hover::before {
+            width: 60%;
+        }
+
+        .nav-item.active {
+            background: rgba(255,255,255,0.2);
+            color: var(--gold-light);
+        }
+
+        .nav-item.active::before {
+            width: 60%;
+        }
+
+        /* ==================== 英雄横幅区域 ==================== */
+        .hero {
+            position: relative;
+            height: 460px;
+            background: linear-gradient(135deg, var(--dark) 0%, var(--dark-light) 35%, var(--china-red-darker) 100%);
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hero-grid {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(184, 148, 31, 0.04) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(184, 148, 31, 0.04) 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+
+        .hero-particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: var(--gold);
+            border-radius: 50%;
+            animation: particleFloat 12s infinite;
+            opacity: 0;
+        }
+
+        @keyframes particleFloat {
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.7; }
+            90% { opacity: 0.7; }
+            100% { transform: translateY(-100vh) rotate(720deg); opacity: 0; }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            color: #fff;
+            max-width: 850px;
+            padding: 0 20px;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            padding: 7px 24px;
+            background: rgba(184, 148, 31, 0.12);
+            border: 1px solid var(--gold);
+            border-radius: 2px;
+            color: var(--gold-light);
+            font-size: 12px;
+            letter-spacing: 4px;
+            margin-bottom: 22px;
+            animation: badgeFadeIn 0.8s ease-out;
+        }
+
+        @keyframes badgeFadeIn {
+            from { opacity: 0; transform: translateY(-12px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .hero-title {
+            font-size: 54px;
+            font-weight: bold;
+            margin-bottom: 18px;
+            background: linear-gradient(180deg, #fff 0%, var(--gold-light) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: 8px;
+            animation: titleFadeIn 1s ease-out;
+            font-family: 'SimHei', 'Microsoft YaHei', sans-serif;
+            filter: drop-shadow(0 2px 10px rgba(184, 148, 31, 0.3));
+        }
+
+        @keyframes titleFadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .hero-subtitle {
+            font-size: 20px;
+            color: rgba(255,255,255,0.95);
+            margin-bottom: 15px;
+            letter-spacing: 4px;
+            animation: subtitleFadeIn 1.2s ease-out;
+        }
+
+        @keyframes subtitleFadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .hero-description {
+            font-size: 13px;
+            color: rgba(255,255,255,0.6);
+            margin-bottom: 32px;
+            line-height: 2;
+            animation: descFadeIn 1.4s ease-out;
+        }
+
+        @keyframes descFadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 18px;
+            justify-content: center;
+            animation: buttonsFadeIn 1.6s ease-out;
+        }
+
+        @keyframes buttonsFadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .hero-btn {
+            padding: 13px 38px;
+            font-size: 14px;
+            font-weight: bold;
+            text-decoration: none;
+            border-radius: 2px;
+            transition: all 0.3s;
+            letter-spacing: 3px;
+            position: relative;
+            overflow: hidden;
+            border: none;
+            cursor: pointer;
+            font-family: 'SimHei', 'Microsoft YaHei', sans-serif;
+        }
+
+        .hero-btn-primary {
+            background: linear-gradient(180deg, var(--china-red) 0%, var(--china-red-darker) 100%);
+            color: #fff;
+            box-shadow: 0 3px 12px rgba(168, 22, 28, 0.4);
+            border: 1px solid var(--gold);
+        }
+
+        .hero-btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .hero-btn-primary:hover::before {
+            left: 100%;
+        }
+
+        .hero-btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 22px rgba(168, 22, 28, 0.6);
+        }
+
+        .hero-btn-secondary {
+            background: transparent;
+            color: var(--gold-light);
+            border: 1px solid var(--gold);
+        }
+
+        .hero-btn-secondary:hover {
+            background: var(--gold);
+            color: var(--dark);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 22px rgba(184, 148, 31, 0.4);
+        }
+
+        /* ==================== 公告栏 ==================== */
+        .announcement {
+            background: linear-gradient(90deg, #fef9e7 0%, #fef3c7 50%, #fef9e7 100%);
+            border-bottom: 1px solid var(--border);
+            padding: 12px 0;
+        }
+
+        .announcement-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .announcement-icon {
+            background: var(--china-red);
+            color: #fff;
+            padding: 5px 14px;
+            border-radius: 2px;
+            font-size: 12px;
+            font-weight: bold;
+            flex-shrink: 0;
+            letter-spacing: 2px;
+            border: 1px solid var(--gold);
+        }
+
+        .announcement-text {
+            flex: 1;
+            overflow: hidden;
+        }
+
+        .announcement-text marquee {
+            color: var(--text-secondary);
+            font-size: 13px;
+        }
+
+        /* ==================== 通用区块样式 ==================== */
+        .section {
+            padding: 60px 0;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 45px;
+        }
+
+        .section-title {
+            font-size: 30px;
+            font-weight: bold;
+            color: var(--text-primary);
+            margin-bottom: 15px;
+            position: relative;
+            display: inline-block;
+            letter-spacing: 5px;
+            font-family: 'SimHei', 'Microsoft YaHei', sans-serif;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--china-red), var(--gold));
+        }
+
+        .section-subtitle {
+            font-size: 13px;
+            color: var(--text-secondary);
+            margin-top: 22px;
+            letter-spacing: 2px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* ==================== 数据统计区域 ==================== */
+        .stats-section {
+            background: linear-gradient(135deg, var(--china-red-darker) 0%, var(--china-red-dark) 50%, var(--china-red-darker) 100%);
+            padding: 50px 0;
+            position: relative;
+            overflow: hidden;
+            border-top: 3px solid var(--gold);
+            border-bottom: 3px solid var(--gold);
+        }
+
+        .stats-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -5%;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(184,148,31,0.08) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0;
+            position: relative;
+            z-index: 1;
+        }
+
+        .stat-item {
+            text-align: center;
+            color: #fff;
+            padding: 20px 15px;
+            border-right: 1px solid rgba(255,255,255,0.15);
+        }
+
+        .stat-item:last-child {
+            border-right: none;
+        }
+
+        .stat-number {
+            font-size: 44px;
+            font-weight: bold;
+            color: var(--gold-light);
+            margin-bottom: 8px;
+            font-family: 'Georgia', 'Times New Roman', serif;
+            text-shadow: 0 0 15px rgba(184, 148, 31, 0.4);
+        }
+
+        .stat-label {
+            font-size: 13px;
+            color: rgba(255,255,255,0.85);
+            letter-spacing: 3px;
+        }
+
+        /* ==================== 书籍推荐区域 ==================== */
+        .books-section {
+            background: var(--bg-light);
+        }
+
+        .books-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+        }
+
+        .book-card {
+            background: var(--bg-white);
+            border-radius: 4px;
+            overflow: hidden;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.06);
+            transition: all 0.3s;
+            position: relative;
+            border-top: 5px solid var(--china-red);
+            border: 1px solid var(--border);
+            border-top: 5px solid var(--china-red);
+        }
+
+        .book-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 35px rgba(168, 22, 28, 0.15);
+            border-color: var(--gold);
+        }
+
+        .book-header {
+            padding: 25px;
+            background: linear-gradient(135deg, #fafafa 0%, #f5f5f5 100%);
+            position: relative;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .book-badge {
+            position: absolute;
+            top: 18px;
+            right: 18px;
+            background: linear-gradient(180deg, var(--china-red), var(--china-red-darker));
+            color: #fff;
+            padding: 5px 14px;
+            border-radius: 2px;
+            font-size: 11px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            border: 1px solid var(--gold);
+        }
+
+        .book-icon {
+            width: 56px;
+            height: 56px;
+            background: linear-gradient(135deg, var(--china-red) 0%, var(--china-red-darker) 100%);
+            border-radius: 4px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 28px;
+            margin-bottom: 18px;
+            box-shadow: 0 3px 12px rgba(168, 22, 28, 0.25);
+            border: 1px solid var(--gold);
+        }
+
+        .book-title {
+            font-size: 20px;
+            font-weight: bold;
+            color: var(--text-primary);
+            margin-bottom: 10px;
+            line-height: 1.5;
+            font-family: 'SimHei', 'Microsoft YaHei', sans-serif;
+        }
+
+        .book-subtitle {
+            font-size: 12px;
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        .book-body {
+            padding: 20px 25px;
+        }
+
+        .book-features {
+            list-style: none;
+            margin-bottom: 20px;
+        }
+
+        .book-features li {
+            padding: 6px 0;
+            color: var(--text-secondary);
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .book-features li::before {
+            content: '■';
+            color: var(--china-red);
+            font-size: 8px;
+        }
+
+        .book-footer {
+            padding: 18px 25px;
+            background: #fafafa;
+            border-top: 1px solid var(--border);
+        }
+
+        .book-btn {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(180deg, var(--china-red) 0%, var(--china-red-darker) 100%);
+            color: #fff;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 2px;
+            font-size: 14px;
+            font-weight: bold;
+            letter-spacing: 3px;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid var(--gold);
+            font-family: 'SimHei', 'Microsoft YaHei', sans-serif;
+        }
+
+        .book-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.18), transparent);
+            transition: left 0.5s;
+        }
+
+        .book-btn:hover::before {
+            left: 100%;
+        }
+
+        .book-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(168, 22, 28, 0.35);
+        }
+
+        /* ==================== 知识体系区域 ==================== */
+        .knowledge-section {
+            background: var(--bg-white);
+        }
+
+        .knowledge-timeline {
+            position: relative;
+            max-width: 850px;
+            margin: 0 auto;
+        }
+
+        .knowledge-timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: linear-gradient(180deg, var(--china-red), var(--gold), var(--china-red));
+            transform: translateX(-50%);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 40px;
+            width: 50%;
+        }
+
+        .timeline-item:nth-child(odd) {
+            padding-right: 45px;
+            text-align: right;
+        }
+
+        .timeline-item:nth-child(even) {
+            margin-left: 50%;
+            padding-left: 45px;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            top: 10px;
+            width: 22px;
+            height: 22px;
+            background: var(--china-red);
+            border: 3px solid var(--gold);
+            border-radius: 50%;
+            z-index: 1;
+            box-shadow: 0 0 10px rgba(168, 22, 28, 0.5);
+        }
+
+        .timeline-item:nth-child(odd) .timeline-dot {
+            right: -11px;
+        }
+
+        .timeline-item:nth-child(even) .timeline-dot {
+            left: -11px;
+        }
+
+        .timeline-content {
+            background: var(--bg-white);
+            padding: 22px;
+            border-radius: 4px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+            border-left: 4px solid var(--china-red);
+            transition: all 0.3s;
+            border: 1px solid var(--border);
+            border-left: 4px solid var(--china-red);
+        }
+
+        .timeline-item:nth-child(even) .timeline-content {
+            border-left: 1px solid var(--border);
+            border-right: 4px solid var(--china-red);
+        }
+
+        .timeline-content:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 22px rgba(168, 22, 28, 0.12);
+        }
+
+        .timeline-stage {
+            font-size: 12px;
+            color: var(--china-red);
+            font-weight: bold;
+            margin-bottom: 8px;
+            letter-spacing: 3px;
+        }
+
+        .timeline-title {
+            font-size: 18px;
+            font-weight: bold;
+            color: var(--text-primary);
+            margin-bottom: 10px;
+            font-family: 'SimHei', 'Microsoft YaHei', sans-serif;
+        }
+
+        .timeline-desc {
+            font-size: 13px;
+            color: var(--text-secondary);
+            line-height: 1.8;
+        }
+
+        /* ==================== 关于我们区域 ==================== */
+        .about-section {
+            background: linear-gradient(135deg, var(--dark) 0%, var(--dark-light) 100%);
+            color: #fff;
+        }
+
+        .about-section .section-title {
+            color: #fff;
+        }
+
+        .about-section .section-subtitle {
+            color: rgba(255,255,255,0.55);
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+        }
+
+        .about-card {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 4px;
+            padding: 35px 25px;
+            text-align: center;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .about-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--china-red), var(--gold));
+            transform: scaleX(0);
+            transition: transform 0.3s;
+        }
+
+        .about-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .about-card:hover {
+            background: rgba(255,255,255,0.06);
+            transform: translateY(-5px);
+            border-color: var(--gold);
+        }
+
+        .about-icon {
+            width: 65px;
+            height: 65px;
+            background: linear-gradient(135deg, var(--china-red) 0%, var(--china-red-darker) 100%);
+            border-radius: 4px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 32px;
+            margin: 0 auto 20px;
+            box-shadow: 0 3px 15px rgba(168, 22, 28, 0.35);
+            border: 1px solid var(--gold);
+        }
+
+        .about-title {
+            font-size: 19px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: var(--gold-light);
+            font-family: 'SimHei', 'Microsoft YaHei', sans-serif;
+            letter-spacing: 2px;
+        }
+
+        .about-desc {
+            font-size: 13px;
+            color: rgba(255,255,255,0.6);
+            line-height: 1.9;
+        }
+
+        /* ==================== 联系我们区域 ==================== */
+        .contact-section {
+            background: var(--bg-light);
+        }
+
+        .contact-card {
+            background: var(--bg-white);
+            border-radius: 4px;
+            padding: 50px;
+            box-shadow: 0 5px 30px rgba(0,0,0,0.08);
+            text-align: center;
+            max-width: 750px;
+            margin: 0 auto;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid var(--border);
+        }
+
+        .contact-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, var(--china-red), var(--gold), var(--china-red));
+        }
+
+        .contact-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--china-red) 0%, var(--china-red-darker) 100%);
+            border-radius: 4px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 38px;
+            margin: 0 auto 25px;
+            box-shadow: 0 5px 22px rgba(168, 22, 28, 0.35);
+            border: 2px solid var(--gold);
+            animation: contactIconPulse 2.5s ease-in-out infinite;
+        }
+
+        @keyframes contactIconPulse {
+            0%, 100% { box-shadow: 0 5px 22px rgba(168, 22, 28, 0.35); }
+            50% { box-shadow: 0 5px 45px rgba(168, 22, 28, 0.55); }
+        }
+
+        .contact-title {
+            font-size: 28px;
+            font-weight: bold;
+            color: var(--text-primary);
+            margin-bottom: 15px;
+            font-family: 'SimHei', 'Microsoft YaHei', sans-serif;
+            letter-spacing: 3px;
+        }
+
+        .contact-desc {
+            font-size: 13px;
+            color: var(--text-secondary);
+            margin-bottom: 30px;
+            line-height: 1.9;
+        }
+
+        .contact-email {
+            display: inline-block;
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--china-red);
+            text-decoration: none;
+            padding: 18px 45px;
+            background: linear-gradient(135deg, #fff5f5 0%, #fff0f0 100%);
+            border: 2px solid var(--china-red);
+            border-radius: 4px;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+            font-family: 'Consolas', monospace;
+        }
+
+        .contact-email::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(168,22,28,0.06), transparent);
+            transition: left 0.5s;
+        }
+
+        .contact-email:hover::before {
+            left: 100%;
+        }
+
+        .contact-email:hover {
+            background: var(--china-red);
+            color: #fff;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 28px rgba(168, 22, 28, 0.35);
+        }
+
+        /* ==================== 页脚 ==================== */
+        .footer {
+            background: linear-gradient(180deg, var(--dark) 0%, #05050a 100%);
+            color: rgba(255,255,255,0.55);
+            padding: 50px 0 0;
+            border-top: 5px solid var(--china-red);
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 35px;
+            padding-bottom: 35px;
+        }
+
+        .footer-brand h3 {
+            font-size: 22px;
+            color: #fff;
+            margin-bottom: 15px;
+            letter-spacing: 4px;
+            font-family: 'SimHei', 'Microsoft YaHei', sans-serif;
+        }
+
+        .footer-brand p {
+            font-size: 12px;
+            line-height: 1.9;
+            margin-bottom: 18px;
+        }
+
+        .footer-brand-email {
+            color: var(--gold-light);
+            text-decoration: none;
+            font-size: 12px;
+            font-family: 'Consolas', monospace;
+        }
+
+        .footer-column h4 {
+            font-size: 15px;
+            color: #fff;
+            margin-bottom: 18px;
+            position: relative;
+            padding-bottom: 10px;
+            letter-spacing: 2px;
+            font-family: 'SimHei', 'Microsoft YaHei', sans-serif;
+        }
+
+        .footer-column h4::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 30px;
+            height: 2px;
+            background: var(--china-red);
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column li {
+            margin-bottom: 12px;
+        }
+
+        .footer-column a {
+            color: rgba(255,255,255,0.45);
+            text-decoration: none;
+            font-size: 12px;
+            transition: all 0.3s;
+        }
+
+        .footer-column a:hover {
+            color: var(--gold-light);
+            padding-left: 5px;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255,255,255,0.08);
+            padding: 22px 0;
+            text-align: center;
+            font-size: 12px;
+            color: rgba(255,255,255,0.35);
+            line-height: 2;
+        }
+
+        .footer-bottom a {
+            color: rgba(255,255,255,0.35);
+            text-decoration: none;
+            margin: 0 10px;
+        }
+
+        .footer-bottom a:hover {
+            color: var(--gold-light);
+        }
+
+        /* ==================== 回到顶部按钮 ==================== */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(180deg, var(--china-red) 0%, var(--china-red-darker) 100%);
+            color: #fff;
+            border: 1px solid var(--gold);
+            border-radius: 2px;
+            font-size: 20px;
+            cursor: pointer;
+            box-shadow: 0 3px 15px rgba(168, 22, 28, 0.35);
+            transition: all 0.3s;
+            opacity: 0;
+            visibility: hidden;
+            z-index: 999;
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 25px rgba(168, 22, 28, 0.55);
+        }
+
+        /* ==================== 滚动动画 ==================== */
+        .scroll-animate {
+            opacity: 0;
+            transform: translateY(35px);
+            transition: all 0.7s ease-out;
+        }
+
+        .scroll-animate.animated {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ==================== 响应式设计 ==================== */
+        @media (max-width: 1024px) {
+            .books-grid { grid-template-columns: 1fr; }
+            .stats-grid { grid-template-columns: repeat(2, 1fr); }
+            .stat-item:nth-child(2) { border-right: none; }
+            .stat-item:nth-child(1), .stat-item:nth-child(2) { border-bottom: 1px solid rgba(255,255,255,0.15); }
+            .about-grid { grid-template-columns: 1fr; }
+            .footer-content { grid-template-columns: 1fr 1fr; }
+            .hero-title { font-size: 42px; }
+        }
+
+        @media (max-width: 768px) {
+            .top-banner-content { flex-direction: column; gap: 5px; }
+            .header-content { flex-direction: column; gap: 18px; text-align: center; }
+            .header-contact { text-align: center; border-left: none; border-top: 1px solid var(--border); padding-left: 0; padding-top: 15px; }
+            .nav-item { padding: 13px 18px; font-size: 13px; letter-spacing: 1px; }
+            .hero { height: 400px; }
+            .hero-title { font-size: 34px; letter-spacing: 5px; }
+            .hero-subtitle { font-size: 16px; }
+            .hero-buttons { flex-direction: column; align-items: center; }
+            .stats-grid { grid-template-columns: 1fr; }
+            .stat-item { border-right: none !important; border-bottom: 1px solid rgba(255,255,255,0.15); }
+            .stat-item:last-child { border-bottom: none; }
+            .stat-number { font-size: 38px; }
+            .knowledge-timeline::before { left: 15px; }
+            .timeline-item { width: 100%; padding-left: 45px !important; padding-right: 0 !important; text-align: left !important; margin-left: 0 !important; }
+            .timeline-item .timeline-dot { left: 4px !important; right: auto !important; }
+            .timeline-content { border-left: 4px solid var(--china-red) !important; border-right: 1px solid var(--border) !important; }
+            .contact-card { padding: 35px 20px; }
+            .contact-email { font-size: 17px; padding: 14px 25px; }
+            .footer-content { grid-template-columns: 1fr; }
+            .section-title { font-size: 25px; }
+        }
+    </style>
+</head>
+<body>
+    <!-- ==================== 二进制代码雨进入页 ==================== -->
+    <div class="intro-overlay" id="introOverlay">
+        <canvas id="binaryCanvas"></canvas>
+        <div class="intro-center" id="introCenter">
+            <div class="intro-emblem">
+                <div class="intro-emblem-ring"></div>
+                <div class="intro-emblem-ring"></div>
+                <div class="intro-emblem-core">⚛</div>
+            </div>
+            <div class="intro-title">编程科学</div>
+            <div class="intro-subtitle">PROGRAMMING SCIENCE</div>
+            <div class="intro-divider"></div>
+            <div class="intro-progress">
+                <div class="intro-progress-bar" id="introProgressBar"></div>
+            </div>
+            <div class="intro-percent" id="introPercent">0%</div>
+            <div class="intro-status" id="introStatus">正在初始化系统...</div>
+        </div>
+    </div>
+
+    <!-- ==================== 顶部红色横幅 ==================== -->
+    <div class="top-banner">
+        <div class="top-banner-content">
+            <div class="top-banner-left">
+                <span>🇨🇳 欢迎访问编程科学官方网站</span>
+                <span class="banner-sep">|</span>
+                <span>权威 · 专业 · 系统 · 实战</span>
+            </div>
+            <div class="top-banner-right">
+                <a href="#books">📚 精品书籍</a>
+                <span class="banner-sep">|</span>
+                <a href="#contact">📧 联系我们</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== 头部Logo区域 ==================== -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo-section">
+                <div class="logo-emblem">⚛</div>
+                <div class="logo-text">
+                    <h1>编程科学</h1>
+                    <p>PROGRAMMING SCIENCE · 官方网站</p>
+                </div>
+            </div>
+            <div class="header-contact">
+                <div class="header-contact-title">官方联系邮箱</div>
+                <a href="mailto:programmingscience@foxmail.com" class="header-contact-email">
+                    programmingscience@foxmail.com
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- ==================== 导航栏 ==================== -->
+    <nav class="navbar">
+        <div class="navbar-content">
+            <a href="#home" class="nav-item active">首页</a>
+            <a href="#books" class="nav-item">精品书籍</a>
+            <a href="#knowledge" class="nav-item">知识体系</a>
+            <a href="#about" class="nav-item">关于我们</a>
+            <a href="#contact" class="nav-item">联系我们</a>
+        </div>
+    </nav>
+
+    <!-- ==================== 英雄横幅区域 ==================== -->
+    <section class="hero" id="home">
+        <div class="hero-grid"></div>
+        <div class="hero-particles" id="heroParticles"></div>
+        <div class="hero-content">
+            <div class="hero-badge">★ 官方权威发布 ★</div>
+            <h1 class="hero-title">编程科学</h1>
+            <p class="hero-subtitle">从Python入门到项目实战的完整知识体系</p>
+            <p class="hero-description">
+                权威 · 专业 · 系统 · 实战<br>
+                致力于为编程学习者提供最权威、最系统、最实用的编程知识体系<br>
+                从零基础到项目实战，一步一个脚印，助你成为编程高手
+            </p>
+            <div class="hero-buttons">
+                <a href="#books" class="hero-btn hero-btn-primary">📚 立即学习</a>
+                <a href="#contact" class="hero-btn hero-btn-secondary">📧 联系我们</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== 公告栏 ==================== -->
+    <div class="announcement">
+        <div class="announcement-content">
+            <div class="announcement-icon">公 告</div>
+            <div class="announcement-text">
+                <marquee scrollamount="4">
+                    【重要通知】《从Python入门到项目实战的完整知识体系》现已正式发布！点击首页"精品书籍"立即查看！ | 
+                    《Python进阶实战：从会写代码到能做项目》同步上线！ | 
+                    官方联系邮箱：programmingscience@foxmail.com | 
+                    感谢您的访问与支持！
+                </marquee>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== 数据统计区域 ==================== -->
+    <section class="stats-section">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-item scroll-animate">
+                    <div class="stat-number" data-target="2">0</div>
+                    <div class="stat-label">精品书籍</div>
+                </div>
+                <div class="stat-item scroll-animate">
+                    <div class="stat-number" data-target="100">0</div>
+                    <div class="stat-label">知识章节</div>
+                </div>
+                <div class="stat-item scroll-animate">
+                    <div class="stat-number" data-target="50">0</div>
+                    <div class="stat-label">实战项目</div>
+                </div>
+                <div class="stat-item scroll-animate">
+                    <div class="stat-number" data-target="10000">0</div>
+                    <div class="stat-label">学习者</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== 书籍推荐区域 ==================== -->
+    <section class="section books-section" id="books">
+        <div class="container">
+            <div class="section-header scroll-animate">
+                <h2 class="section-title">精品书籍</h2>
+                <p class="section-subtitle">权威发布 · 系统学习 · 实战导向</p>
+            </div>
+            <div class="books-grid">
+                <div class="book-card scroll-animate">
+                    <div class="book-header">
+                        <div class="book-badge">入门到实战</div>
+                        <div class="book-icon">🐍</div>
+                        <h3 class="book-title">从Python入门到项目实战的完整知识体系</h3>
+                        <p class="book-subtitle">
+                            零基础入门 · 系统学习 · 项目实战<br>
+                            从Python基础语法到完整项目开发，一步一个脚印
+                        </p>
+                    </div>
+                    <div class="book-body">
+                        <ul class="book-features">
+                            <li>Python基础语法与核心概念</li>
+                            <li>面向对象编程与设计模式</li>
+                            <li>文件操作、异常处理、模块管理</li>
+                            <li>Web开发、数据分析、自动化脚本</li>
+                            <li>10+完整实战项目案例</li>
+                            <li>从零基础到独立开发完整项目</li>
+                        </ul>
+                    </div>
+                    <div class="book-footer">
+                        <a href="https://www.kdocs.cn/l/cibV2nUtjcCf" target="_blank" class="book-btn">
+                            📖 立即阅读
+                        </a>
+                    </div>
+                </div>
+
+                <div class="book-card scroll-animate">
+                    <div class="book-header">
+                        <div class="book-badge">进阶实战</div>
+                        <div class="book-icon">🚀</div>
+                        <h3 class="book-title">Python进阶实战：从会写代码到能做项目</h3>
+                        <p class="book-subtitle">
+                            进阶提升 · 项目驱动 · 企业级开发<br>
+                            从会写代码到能独立完成企业级项目的跨越
+                        </p>
+                    </div>
+                    <div class="book-body">
+                        <ul class="book-features">
+                            <li>高级语法与性能优化技巧</li>
+                            <li>并发编程、异步编程、多进程</li>
+                            <li>数据库设计与ORM框架使用</li>
+                            <li>RESTful API开发与微服务架构</li>
+                            <li>测试驱动开发与代码质量保证</li>
+                            <li>企业级项目完整开发流程</li>
+                        </ul>
+                    </div>
+                    <div class="book-footer">
+                        <a href="https://www.kdocs.cn/l/chRxLQ3m8cqr" target="_blank" class="book-btn">
+                            📖 立即阅读
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== 知识体系区域 ==================== -->
+    <section class="section knowledge-section" id="knowledge">
+        <div class="container">
+            <div class="section-header scroll-animate">
+                <h2 class="section-title">知识体系</h2>
+                <p class="section-subtitle">从入门到精通 · 系统完整 · 循序渐进</p>
+            </div>
+            <div class="knowledge-timeline">
+                <div class="timeline-item scroll-animate">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-stage">第一阶段</div>
+                        <h3 class="timeline-title">Python基础入门</h3>
+                        <p class="timeline-desc">
+                            学习Python基础语法、变量、数据类型、运算符、流程控制、函数、模块等核心概念，打下坚实的编程基础。
+                        </p>
+                    </div>
+                </div>
+                <div class="timeline-item scroll-animate">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-stage">第二阶段</div>
+                        <h3 class="timeline-title">面向对象编程</h3>
+                        <p class="timeline-desc">
+                            深入学习面向对象编程思想，类与对象、继承、多态、封装、设计模式，掌握现代编程的核心思维方式。
+                        </p>
+                    </div>
+                </div>
+                <div class="timeline-item scroll-animate">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-stage">第三阶段</div>
+                        <h3 class="timeline-title">高级特性与进阶</h3>
+                        <p class="timeline-desc">
+                            学习迭代器、生成器、装饰器、上下文管理器、元编程、并发编程、异步编程等高级特性，提升编程能力。
+                        </p>
+                    </div>
+                </div>
+                <div class="timeline-item scroll-animate">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-stage">第四阶段</div>
+                        <h3 class="timeline-title">项目实战开发</h3>
+                        <p class="timeline-desc">
+                            通过Web开发、数据分析、自动化脚本、爬虫、游戏开发等多个实战项目，将所学知识应用到实际项目中。
+                        </p>
+                    </div>
+                </div>
+                <div class="timeline-item scroll-animate">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-stage">第五阶段</div>
+                        <h3 class="timeline-title">企业级开发能力</h3>
+                        <p class="timeline-desc">
+                            学习数据库设计、API开发、测试驱动、代码规范、项目部署、团队协作等企业级开发技能，成为专业开发者。
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== 关于我们区域 ==================== -->
+    <section class="section about-section" id="about">
+        <div class="container">
+            <div class="section-header scroll-animate">
+                <h2 class="section-title">关于我们</h2>
+                <p class="section-subtitle">权威 · 专业 · 系统 · 实战</p>
+            </div>
+            <div class="about-grid">
+                <div class="about-card scroll-animate">
+                    <div class="about-icon">🎯</div>
+                    <h3 class="about-title">权威专业</h3>
+                    <p class="about-desc">
+                        由资深编程专家精心编写，内容权威、专业、系统，经过严格审核，确保知识的准确性和实用性。
+                    </p>
+                </div>
+                <div class="about-card scroll-animate">
+                    <div class="about-icon">📚</div>
+                    <h3 class="about-title">系统完整</h3>
+                    <p class="about-desc">
+                        从零基础到项目实战，构建完整的知识体系，循序渐进，层层递进，让学习者系统掌握编程技能。
+                    </p>
+                </div>
+                <div class="about-card scroll-animate">
+                    <div class="about-icon">💻</div>
+                    <h3 class="about-title">实战导向</h3>
+                    <p class="about-desc">
+                        注重实战应用，通过大量实战项目和案例，将理论知识转化为实际开发能力，学完即可独立做项目。
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== 联系我们区域 ==================== -->
+    <section class="section contact-section" id="contact">
+        <div class="container">
+            <div class="contact-card scroll-animate">
+                <div class="contact-icon">📧</div>
+                <h2 class="contact-title">联系我们</h2>
+                <p class="contact-desc">
+                    如有任何问题、建议或合作意向，欢迎通过官方邮箱与我们联系<br>
+                    我们将在第一时间回复您的邮件
+                </p>
+                <a href="mailto:programmingscience@foxmail.com" class="contact-email">
+                    programmingscience@foxmail.com
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== 页脚 ==================== -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <h3>编程科学</h3>
+                <p>
+                    致力于为编程学习者提供最权威、最系统、最实用的编程知识体系。
+                    从Python入门到项目实战，助你成为编程高手。
+                </p>
+                <a href="mailto:programmingscience@foxmail.com" class="footer-brand-email">
+                    📧 programmingscience@foxmail.com
+                </a>
+            </div>
+            <div class="footer-column">
+                <h4>快速链接</h4>
+                <ul>
+                    <li><a href="#home">首页</a></li>
+                    <li><a href="#books">精品书籍</a></li>
+                    <li><a href="#knowledge">知识体系</a></li>
+                    <li><a href="#about">关于我们</a></li>
+                    <li><a href="#contact">联系我们</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>精品书籍</h4>
+                <ul>
+                    <li><a href="https://www.kdocs.cn/l/cibV2nUtjcCf" target="_blank">Python入门到实战</a></li>
+                    <li><a href="https://www.kdocs.cn/l/chRxLQ3m8cqr" target="_blank">Python进阶实战</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>联系方式</h4>
+                <ul>
+                    <li><a href="mailto:programmingscience@foxmail.com">官方邮箱</a></li>
+                    <li><a href="#contact">在线留言</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>
+                © 2026 编程科学 Programming Science 官方网站 版权所有 | 
+                <a href="#home">首页</a> | 
+                <a href="#books">精品书籍</a> | 
+                <a href="#contact">联系我们</a>
+            </p>
+            <p>
+                权威 · 专业 · 系统 · 实战 | 官方联系邮箱：programmingscience@foxmail.com
+            </p>
+        </div>
+    </footer>
+
+    <!-- ==================== 回到顶部按钮 ==================== -->
+    <button class="back-to-top" id="backToTop" onclick="scrollToTop()">↑</button>
+
+    <script>
+        // ==================== 二进制代码雨进入页 ====================
+        const canvas = document.getElementById('binaryCanvas');
+        const ctx = canvas.getContext('2d');
+        
+        let canvasWidth = window.innerWidth;
+        let canvasHeight = window.innerHeight;
+        canvas.width = canvasWidth;
+        canvas.height = canvasHeight;
+
+        const fontSize = 16;
+        const columns = Math.floor(canvasWidth / fontSize);
+        const drops = [];
+        for (let i = 0; i < columns; i++) {
+            drops[i] = Math.random() * -100;
+        }
+
+        let binaryPhase = 'rain'; // rain -> gather -> emblem
+        let gatherProgress = 0;
+        let emblemParticles = [];
+
+        function drawBinaryRain() {
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.08)';
+            ctx.fillRect(0, 0, canvasWidth, canvasHeight);
+
+            ctx.font = fontSize + 'px Consolas, monospace';
+
+            for (let i = 0; i < drops.length; i++) {
+                const text = Math.random() > 0.5 ? '1' : '0';
+                const x = i * fontSize;
+                const y = drops[i] * fontSize;
+
+                // 头部亮，尾部暗
+                const gradient = ctx.createLinearGradient(x, y - fontSize * 10, x, y);
+                gradient.addColorStop(0, 'rgba(168, 22, 28, 0)');
+                gradient.addColorStop(0.8, 'rgba(168, 22, 28, 0.6)');
+                gradient.addColorStop(1, 'rgba(212, 175, 55, 1)');
+                
+                ctx.fillStyle = gradient;
+                ctx.fillText(text, x, y);
+
+                if (y > canvasHeight && Math.random() > 0.975) {
+                    drops[i] = 0;
+                }
+                drops[i]++;
+            }
+        }
+
+        // 创建图标粒子（用0和1组成图标形状）
+        function createEmblemParticles() {
+            const centerX = canvasWidth / 2;
+            const centerY = canvasHeight / 2 - 50;
+            const radius = 60;
+            
+            emblemParticles = [];
+            
+            // 圆形轮廓
+            for (let angle = 0; angle < Math.PI * 2; angle += 0.15) {
+                emblemParticles.push({
+                    targetX: centerX + Math.cos(angle) * radius,
+                    targetY: centerY + Math.sin(angle) * radius,
+                    x: Math.random() * canvasWidth,
+                    y: Math.random() * canvasHeight,
+                    char: Math.random() > 0.5 ? '1' : '0',
+                    speed: 0.02 + Math.random() * 0.03
+                });
+            }
+            
+            // 内部原子符号
+            for (let i = 0; i < 30; i++) {
+                const angle = (i / 30) * Math.PI * 2;
+                const r = 25 + Math.sin(angle * 3) * 10;
+                emblemParticles.push({
+                    targetX: centerX + Math.cos(angle) * r,
+                    targetY: centerY + Math.sin(angle) * r,
+                    x: Math.random() * canvasWidth,
+                    y: Math.random() * canvasHeight,
+                    char: Math.random() > 0.5 ? '1' : '0',
+                    speed: 0.02 + Math.random() * 0.03
+                });
+            }
+        }
+
+        function drawGatherPhase() {
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.15)';
+            ctx.fillRect(0, 0, canvasWidth, canvasHeight);
+
+            ctx.font = fontSize + 'px Consolas, monospace';
+
+            emblemParticles.forEach(p => {
+                p.x += (p.targetX - p.x) * p.speed;
+                p.y += (p.targetY - p.y) * p.speed;
+                
+                const dist = Math.sqrt((p.x - p.targetX) ** 2 + (p.y - p.targetY) ** 2);
+                const alpha = Math.max(0.3, 1 - dist / 100);
+                
+                ctx.fillStyle = `rgba(212, 175, 55, ${alpha})`;
+                ctx.shadowColor = '#a8161c';
+                ctx.shadowBlur = 10;
+                ctx.fillText(p.char, p.x, p.y);
+                ctx.shadowBlur = 0;
+            });
+        }
+
+        let introStarted = false;
+        let rainDuration = 2500; // 代码雨持续时间
+        let gatherDuration = 2000; // 聚集时间
+        let startTime = Date.now();
+
+        function introLoop() {
+            const elapsed = Date.now() - startTime;
+
+            if (elapsed < rainDuration) {
+                // 阶段1：代码雨
+                drawBinaryRain();
+            } else if (elapsed < rainDuration + gatherDuration) {
+                // 阶段2：代码聚集形成图标
+                if (!introStarted) {
+                    createEmblemParticles();
+                    introStarted = true;
+                    document.getElementById('introCenter').classList.add('visible');
+                }
+                drawGatherPhase();
+            } else {
+                // 阶段3：图标完成，渐隐canvas
+                ctx.fillStyle = 'rgba(0, 0, 0, 0.2)';
+                ctx.fillRect(0, 0, canvasWidth, canvasHeight);
+                drawGatherPhase();
+                
+                if (elapsed > rainDuration + gatherDuration + 500) {
+                    canvas.style.transition = 'opacity 0.8s';
+                    canvas.style.opacity = '0';
+                }
+                return;
+            }
+
+            requestAnimationFrame(introLoop);
+        }
+
+        introLoop();
+
+        // 进度条模拟
+        const statuses = [
+            '正在初始化系统...',
+            '正在加载核心模块...',
+            '正在构建知识体系...',
+            '正在验证数据完整性...',
+            '系统准备就绪！'
+        ];
+
+        let progress = 0;
+        const progressBar = document.getElementById('introProgressBar');
+        const percentEl = document.getElementById('introPercent');
+        const statusEl = document.getElementById('introStatus');
+
+        const progressTimer = setInterval(() => {
+            progress += Math.random() * 3 + 1;
+            if (progress >= 100) {
+                progress = 100;
+                clearInterval(progressTimer);
+                statusEl.textContent = statuses[4];
+                
+                // 延迟后淡出进入页
+                setTimeout(() => {
+                    document.getElementById('introOverlay').classList.add('fade-out');
+                    setTimeout(() => {
+                        document.getElementById('introOverlay').style.display = 'none';
+                    }, 1200);
+                }, 800);
+            }
+            
+            progressBar.style.width = progress + '%';
+            percentEl.textContent = Math.floor(progress) + '%';
+            
+            const statusIndex = Math.min(Math.floor(progress / 25), 3);
+            statusEl.textContent = statuses[statusIndex];
+        }, 60);
+
+        // 窗口大小变化
+        window.addEventListener('resize', () => {
+            canvasWidth = window.innerWidth;
+            canvasHeight = window.innerHeight;
+            canvas.width = canvasWidth;
+            canvas.height = canvasHeight;
+        });
+
+        // ==================== 英雄区粒子背景 ====================
+        function createParticles() {
+            const container = document.getElementById('heroParticles');
+            for (let i = 0; i < 35; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 12 + 's';
+                particle.style.animationDuration = (Math.random() * 8 + 8) + 's';
+                container.appendChild(particle);
+            }
+        }
+        createParticles();
+
+        // ==================== 数字滚动动画 ====================
+        function animateNumbers() {
+            const numbers = document.querySelectorAll('.stat-number');
+            numbers.forEach(function(num) {
+                const target = parseInt(num.getAttribute('data-target'));
+                const duration = 1800;
+                const step = target / (duration / 16);
+                let current = 0;
+                const timer = setInterval(function() {
+                    current += step;
+                    if (current >= target) {
+                        current = target;
+                        clearInterval(timer);
+                    }
+                    num.textContent = Math.floor(current).toLocaleString() + '+';
+                }, 16);
+            });
+        }
+
+        // ==================== 滚动动画 ====================
+        function handleScrollAnimation() {
+            const elements = document.querySelectorAll('.scroll-animate');
+            const windowHeight = window.innerHeight;
+            elements.forEach(function(el) {
+                const elementTop = el.getBoundingClientRect().top;
+                if (elementTop < windowHeight - 80) {
+                    el.classList.add('animated');
+                    if (el.closest('.stats-section') && !el.classList.contains('number-animated')) {
+                        el.classList.add('number-animated');
+                        animateNumbers();
+                    }
+                }
+            });
+        }
+
+        window.addEventListener('scroll', handleScrollAnimation);
+        window.addEventListener('load', function() {
+            setTimeout(handleScrollAnimation, 6000);
+        });
+
+        // ==================== 回到顶部 ====================
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        window.addEventListener('scroll', function() {
+            const backToTop = document.getElementById('backToTop');
+            if (window.scrollY > 300) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
+        });
+
+        // ==================== 导航栏高亮 ====================
+        const navItems = document.querySelectorAll('.nav-item');
+        const sections = document.querySelectorAll('section[id]');
+
+        window.addEventListener('scroll', function() {
+            let current = '';
+            sections.forEach(function(section) {
+                const sectionTop = section.offsetTop;
+                if (window.scrollY >= sectionTop - 150) {
+                    current = section.getAttribute('id');
+                }
+            });
+            navItems.forEach(function(item) {
+                item.classList.remove('active');
+                if (item.getAttribute('href') === '#' + current) {
+                    item.classList.add('active');
+                }
+            });
+        });
+
+        // ==================== 平滑滚动 ====================
+        document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        console.log('%c⚛ 编程科学 Programming Science', 'color: #a8161c; font-size: 22px; font-weight: bold;');
+        console.log('%c权威 · 专业 · 系统 · 实战', 'color: #b8941f; font-size: 14px;');
+        console.log('%c官方邮箱: programmingscience@foxmail.com', 'color: #666; font-size: 12px;');
+    </script>
+</body>
+</html>
