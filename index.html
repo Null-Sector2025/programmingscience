@@ -761,8 +761,8 @@
 
         .books-grid {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 30px;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
         }
 
         .book-card {
@@ -784,7 +784,7 @@
         }
 
         .book-header {
-            padding: 25px;
+            padding: 18px;
             background: linear-gradient(135deg, #fafafa 0%, #f5f5f5 100%);
             position: relative;
             border-bottom: 1px solid var(--border);
@@ -792,73 +792,73 @@
 
         .book-badge {
             position: absolute;
-            top: 18px;
-            right: 18px;
+            top: 12px;
+            right: 12px;
             background: linear-gradient(180deg, var(--china-red), var(--china-red-darker));
             color: #fff;
-            padding: 5px 14px;
+            padding: 3px 10px;
             border-radius: 2px;
-            font-size: 11px;
+            font-size: 10px;
             font-weight: bold;
-            letter-spacing: 2px;
+            letter-spacing: 1px;
             border: 1px solid var(--gold);
         }
 
         .book-icon {
-            width: 56px;
-            height: 56px;
+            width: 44px;
+            height: 44px;
             background: linear-gradient(135deg, var(--china-red) 0%, var(--china-red-darker) 100%);
             border-radius: 4px;
             display: flex;
             justify-content: center;
             align-items: center;
-            font-size: 28px;
-            margin-bottom: 18px;
+            font-size: 22px;
+            margin-bottom: 12px;
             box-shadow: 0 3px 12px rgba(168, 22, 28, 0.25);
             border: 1px solid var(--gold);
         }
 
         .book-title {
-            font-size: 20px;
+            font-size: 15px;
             font-weight: bold;
             color: var(--text-primary);
-            margin-bottom: 10px;
+            margin-bottom: 8px;
             line-height: 1.5;
             font-family: 'SimHei', 'Microsoft YaHei', sans-serif;
         }
 
         .book-subtitle {
-            font-size: 12px;
+            font-size: 11px;
             color: var(--text-secondary);
-            line-height: 1.7;
+            line-height: 1.6;
         }
 
         .book-body {
-            padding: 20px 25px;
+            padding: 15px 18px;
         }
 
         .book-features {
             list-style: none;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
         }
 
         .book-features li {
-            padding: 6px 0;
+            padding: 4px 0;
             color: var(--text-secondary);
-            font-size: 13px;
+            font-size: 11px;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
         }
 
         .book-features li::before {
             content: '■';
             color: var(--china-red);
-            font-size: 8px;
+            font-size: 6px;
         }
 
         .book-footer {
-            padding: 18px 25px;
+            padding: 12px 18px;
             background: #fafafa;
             border-top: 1px solid var(--border);
         }
@@ -866,15 +866,15 @@
         .book-btn {
             display: block;
             width: 100%;
-            padding: 12px;
+            padding: 9px;
             background: linear-gradient(180deg, var(--china-red) 0%, var(--china-red-darker) 100%);
             color: #fff;
             text-align: center;
             text-decoration: none;
             border-radius: 2px;
-            font-size: 14px;
+            font-size: 12px;
             font-weight: bold;
-            letter-spacing: 3px;
+            letter-spacing: 2px;
             transition: all 0.3s;
             position: relative;
             overflow: hidden;
@@ -1329,7 +1329,7 @@
 
         /* ==================== 响应式设计 ==================== */
         @media (max-width: 1024px) {
-            .books-grid { grid-template-columns: 1fr; }
+            .books-grid { grid-template-columns: repeat(2, 1fr); }
             .stats-grid { grid-template-columns: repeat(2, 1fr); }
             .stat-item:nth-child(2) { border-right: none; }
             .stat-item:nth-child(1), .stat-item:nth-child(2) { border-bottom: 1px solid rgba(255,255,255,0.15); }
@@ -1343,6 +1343,7 @@
             .header-content { flex-direction: column; gap: 18px; text-align: center; }
             .header-contact { text-align: center; border-left: none; border-top: 1px solid var(--border); padding-left: 0; padding-top: 15px; }
             .nav-item { padding: 13px 18px; font-size: 13px; letter-spacing: 1px; }
+            .books-grid { grid-template-columns: 1fr; }
             .hero { height: 400px; }
             .hero-title { font-size: 34px; letter-spacing: 5px; }
             .hero-subtitle { font-size: 16px; }
@@ -1424,6 +1425,7 @@
             <a href="#home" class="nav-item active">首页</a>
             <a href="#books" class="nav-item">精品书籍</a>
             <a href="#knowledge" class="nav-item">知识体系</a>
+            <a href="#desktop" class="nav-item">电脑版</a>
             <a href="#about" class="nav-item">关于我们</a>
             <a href="#contact" class="nav-item">联系我们</a>
         </div>
@@ -1439,7 +1441,7 @@
             <p class="hero-subtitle">从Python入门到项目实战的完整知识体系</p>
             <p class="hero-description">
                 权威 · 专业 · 系统 · 实战<br>
-                致力于为编程学习者提供最权威、最系统、最实用的编程知识体系<br>
+                7本精品书籍，涵盖Python入门到全栈开发完整知识体系<br>
                 从零基础到项目实战，一步一个脚印，助你成为编程高手
             </p>
             <div class="hero-buttons">
@@ -1455,8 +1457,7 @@
             <div class="announcement-icon">公 告</div>
             <div class="announcement-text">
                 <marquee scrollamount="4">
-                    【重要通知】《从Python入门到项目实战的完整知识体系》现已正式发布！点击首页"精品书籍"立即查看！ | 
-                    《Python进阶实战：从会写代码到能做项目》同步上线！ | 
+                    【重要通知】编程科学官方网站现已上线7本精品书籍！涵盖Python入门、进阶、Web开发、自动化、AI人工智能、数据分析、全栈实战等全栈知识体系！ | 
                     官方联系邮箱：programmingscience@foxmail.com | 
                     感谢您的访问与支持！
                 </marquee>
@@ -1469,7 +1470,7 @@
         <div class="container">
             <div class="stats-grid">
                 <div class="stat-item scroll-animate">
-                    <div class="stat-number" data-target="2">0</div>
+                    <div class="stat-number" data-target="7">0</div>
                     <div class="stat-label">精品书籍</div>
                 </div>
                 <div class="stat-item scroll-animate">
@@ -1493,60 +1494,153 @@
         <div class="container">
             <div class="section-header scroll-animate">
                 <h2 class="section-title">精品书籍</h2>
-                <p class="section-subtitle">权威发布 · 系统学习 · 实战导向</p>
+                <p class="section-subtitle">权威发布 · 系统学习 · 实战导向 · 全栈覆盖</p>
             </div>
             <div class="books-grid">
+                <!-- 书籍1 -->
                 <div class="book-card scroll-animate">
                     <div class="book-header">
-                        <div class="book-badge">入门到实战</div>
+                        <div class="book-badge">入门</div>
                         <div class="book-icon">🐍</div>
-                        <h3 class="book-title">从Python入门到项目实战的完整知识体系</h3>
-                        <p class="book-subtitle">
-                            零基础入门 · 系统学习 · 项目实战<br>
-                            从Python基础语法到完整项目开发，一步一个脚印
-                        </p>
+                        <h3 class="book-title">Python入门到项目实战</h3>
+                        <p class="book-subtitle">零基础入门 · 系统学习 · 项目实战</p>
                     </div>
                     <div class="book-body">
                         <ul class="book-features">
                             <li>Python基础语法与核心概念</li>
                             <li>面向对象编程与设计模式</li>
-                            <li>文件操作、异常处理、模块管理</li>
-                            <li>Web开发、数据分析、自动化脚本</li>
+                            <li>文件操作、异常处理、模块</li>
                             <li>10+完整实战项目案例</li>
-                            <li>从零基础到独立开发完整项目</li>
                         </ul>
                     </div>
                     <div class="book-footer">
-                        <a href="https://www.kdocs.cn/l/cibV2nUtjcCf" target="_blank" class="book-btn">
-                            📖 立即阅读
-                        </a>
+                        <a href="https://www.kdocs.cn/l/cibV2nUtjcCf" target="_blank" class="book-btn">📖 立即阅读</a>
                     </div>
                 </div>
 
+                <!-- 书籍2 -->
                 <div class="book-card scroll-animate">
                     <div class="book-header">
-                        <div class="book-badge">进阶实战</div>
+                        <div class="book-badge">进阶</div>
                         <div class="book-icon">🚀</div>
-                        <h3 class="book-title">Python进阶实战：从会写代码到能做项目</h3>
-                        <p class="book-subtitle">
-                            进阶提升 · 项目驱动 · 企业级开发<br>
-                            从会写代码到能独立完成企业级项目的跨越
-                        </p>
+                        <h3 class="book-title">Python进阶实战</h3>
+                        <p class="book-subtitle">进阶提升 · 项目驱动 · 企业级开发</p>
                     </div>
                     <div class="book-body">
                         <ul class="book-features">
                             <li>高级语法与性能优化技巧</li>
                             <li>并发编程、异步编程、多进程</li>
-                            <li>数据库设计与ORM框架使用</li>
-                            <li>RESTful API开发与微服务架构</li>
-                            <li>测试驱动开发与代码质量保证</li>
-                            <li>企业级项目完整开发流程</li>
+                            <li>数据库设计与ORM框架</li>
+                            <li>RESTful API与微服务架构</li>
                         </ul>
                     </div>
                     <div class="book-footer">
-                        <a href="https://www.kdocs.cn/l/chRxLQ3m8cqr" target="_blank" class="book-btn">
-                            📖 立即阅读
-                        </a>
+                        <a href="https://www.kdocs.cn/l/chRxLQ3m8cqr" target="_blank" class="book-btn">📖 立即阅读</a>
+                    </div>
+                </div>
+
+                <!-- 书籍3 -->
+                <div class="book-card scroll-animate">
+                    <div class="book-header">
+                        <div class="book-badge">Web开发</div>
+                        <div class="book-icon">🌐</div>
+                        <h3 class="book-title">FastAPI_Flask Web开发</h3>
+                        <p class="book-subtitle">从零搭建企业级网站与API</p>
+                    </div>
+                    <div class="book-body">
+                        <ul class="book-features">
+                            <li>Flask框架深度解析与实战</li>
+                            <li>FastAPI高性能异步API开发</li>
+                            <li>企业级网站架构设计</li>
+                            <li>RESTful API设计与部署</li>
+                        </ul>
+                    </div>
+                    <div class="book-footer">
+                        <a href="https://www.kdocs.cn/l/cgKEiMe31uta" target="_blank" class="book-btn">📖 立即阅读</a>
+                    </div>
+                </div>
+
+                <!-- 书籍4 -->
+                <div class="book-card scroll-animate">
+                    <div class="book-header">
+                        <div class="book-badge">自动化</div>
+                        <div class="book-icon">🛠️</div>
+                        <h3 class="book-title">Python脚本工具箱</h3>
+                        <p class="book-subtitle">万能自动化开发实战全书</p>
+                    </div>
+                    <div class="book-body">
+                        <ul class="book-features">
+                            <li>文件批量处理自动化</li>
+                            <li>办公自动化脚本开发</li>
+                            <li>网络爬虫与数据采集</li>
+                            <li>系统运维自动化工具</li>
+                        </ul>
+                    </div>
+                    <div class="book-footer">
+                        <a href="https://www.kdocs.cn/l/colMrlY5pSrE" target="_blank" class="book-btn">📖 立即阅读</a>
+                    </div>
+                </div>
+
+                <!-- 书籍5 -->
+                <div class="book-card scroll-animate">
+                    <div class="book-header">
+                        <div class="book-badge">AI人工智能</div>
+                        <div class="book-icon">🤖</div>
+                        <h3 class="book-title">Python人工智能与深度学习</h3>
+                        <p class="book-subtitle">零基础实战 · 从入门到精通</p>
+                    </div>
+                    <div class="book-body">
+                        <ul class="book-features">
+                            <li>机器学习基础算法实战</li>
+                            <li>深度学习神经网络原理</li>
+                            <li>TensorFlow/PyTorch框架</li>
+                            <li>计算机视觉与NLP应用</li>
+                        </ul>
+                    </div>
+                    <div class="book-footer">
+                        <a href="https://www.kdocs.cn/l/caIXCnGqXXdD" target="_blank" class="book-btn">📖 立即阅读</a>
+                    </div>
+                </div>
+
+                <!-- 书籍6 -->
+                <div class="book-card scroll-animate">
+                    <div class="book-header">
+                        <div class="book-badge">数据分析</div>
+                        <div class="book-icon">📊</div>
+                        <h3 class="book-title">Python数据分析与可视化</h3>
+                        <p class="book-subtitle">从零基础到商业报表实战</p>
+                    </div>
+                    <div class="book-body">
+                        <ul class="book-features">
+                            <li>Pandas数据处理与清洗</li>
+                            <li>NumPy数值计算实战</li>
+                            <li>Matplotlib/Seaborn可视化</li>
+                            <li>商业数据分析报表制作</li>
+                        </ul>
+                    </div>
+                    <div class="book-footer">
+                        <a href="https://www.kdocs.cn/l/ca4drUT4FsZF" target="_blank" class="book-btn">📖 立即阅读</a>
+                    </div>
+                </div>
+
+                <!-- 书籍7 -->
+                <div class="book-card scroll-animate">
+                    <div class="book-header">
+                        <div class="book-badge">全栈</div>
+                        <div class="book-icon">⚡</div>
+                        <h3 class="book-title">Python自动化全栈实战</h3>
+                        <p class="book-subtitle">全栈开发 · 自动化运维 · 项目实战</p>
+                    </div>
+                    <div class="book-body">
+                        <ul class="book-features">
+                            <li>前端后端全栈开发</li>
+                            <li>自动化测试与CI/CD</li>
+                            <li>Docker容器化部署</li>
+                            <li>企业级项目完整实战</li>
+                        </ul>
+                    </div>
+                    <div class="book-footer">
+                        <a href="https://www.kdocs.cn/l/cq1uTAIFEbAv" target="_blank" class="book-btn">📖 立即阅读</a>
                     </div>
                 </div>
             </div>
@@ -1609,6 +1703,57 @@
                         <p class="timeline-desc">
                             学习数据库设计、API开发、测试驱动、代码规范、项目部署、团队协作等企业级开发技能，成为专业开发者。
                         </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== 电脑版专区 ==================== -->
+    <section class="section desktop-section" id="desktop" style="background: var(--bg-light);">
+        <div class="container">
+            <div class="section-header scroll-animate">
+                <h2 class="section-title">电脑版专区</h2>
+                <p class="section-subtitle">桌面端优化 · 大屏体验 · 高效学习</p>
+            </div>
+            <div class="desktop-card scroll-animate" style="background: var(--bg-white); border-radius: 4px; padding: 40px; box-shadow: 0 5px 30px rgba(0,0,0,0.08); border: 1px solid var(--border); border-top: 5px solid var(--china-red); position: relative; overflow: hidden;">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center;">
+                    <div>
+                        <div style="display: inline-block; padding: 6px 16px; background: linear-gradient(180deg, var(--china-red), var(--china-red-darker)); color: #fff; border-radius: 2px; font-size: 12px; font-weight: bold; letter-spacing: 2px; margin-bottom: 20px; border: 1px solid var(--gold);">
+                            💻 桌面端专属
+                        </div>
+                        <h3 style="font-size: 24px; font-weight: bold; color: var(--text-primary); margin-bottom: 15px; font-family: 'SimHei', sans-serif;">电脑版最佳体验</h3>
+                        <p style="font-size: 14px; color: var(--text-secondary); line-height: 2; margin-bottom: 25px;">
+                            编程科学官方网站完美适配电脑桌面端，大屏浏览体验更佳。<br>
+                            支持1920×1080及以上分辨率，书籍阅读、知识体系浏览更清晰。<br>
+                            推荐使用 Chrome、Edge、Firefox 等现代浏览器访问。
+                        </p>
+                        <div style="display: flex; gap: 15px; flex-wrap: wrap;">
+                            <div style="display: flex; align-items: center; gap: 8px; padding: 8px 16px; background: #f5f5f5; border-radius: 2px; font-size: 13px; color: var(--text-secondary);">
+                                <span>🖥️</span> 大屏优化
+                            </div>
+                            <div style="display: flex; align-items: center; gap: 8px; padding: 8px 16px; background: #f5f5f5; border-radius: 2px; font-size: 13px; color: var(--text-secondary);">
+                                <span>⚡</span> 极速加载
+                            </div>
+                            <div style="display: flex; align-items: center; gap: 8px; padding: 8px 16px; background: #f5f5f5; border-radius: 2px; font-size: 13px; color: var(--text-secondary);">
+                                <span>🔒</span> 安全访问
+                            </div>
+                            <div style="display: flex; align-items: center; gap: 8px; padding: 8px 16px; background: #f5f5f5; border-radius: 2px; font-size: 13px; color: var(--text-secondary);">
+                                <span>📚</span> 7本精品书
+                            </div>
+                        </div>
+                    </div>
+                    <div style="text-align: center;">
+                        <div style="display: inline-block; padding: 30px; background: linear-gradient(135deg, var(--dark) 0%, var(--dark-light) 100%); border-radius: 8px; border: 2px solid var(--gold); position: relative;">
+                            <div style="font-size: 80px; margin-bottom: 15px;">🖥️</div>
+                            <div style="color: var(--gold-light); font-size: 16px; font-weight: bold; letter-spacing: 3px; font-family: 'SimHei', sans-serif;">电脑版</div>
+                            <div style="color: rgba(255,255,255,0.5); font-size: 12px; margin-top: 8px;">DESKTOP EDITION</div>
+                        </div>
+                        <div style="margin-top: 20px;">
+                            <a href="#books" style="display: inline-block; padding: 12px 35px; background: linear-gradient(180deg, var(--china-red) 0%, var(--china-red-darker) 100%); color: #fff; text-decoration: none; border-radius: 2px; font-size: 14px; font-weight: bold; letter-spacing: 2px; border: 1px solid var(--gold); transition: all 0.3s;">
+                                📚 开始学习
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1693,6 +1838,11 @@
                 <ul>
                     <li><a href="https://www.kdocs.cn/l/cibV2nUtjcCf" target="_blank">Python入门到实战</a></li>
                     <li><a href="https://www.kdocs.cn/l/chRxLQ3m8cqr" target="_blank">Python进阶实战</a></li>
+                    <li><a href="https://www.kdocs.cn/l/cgKEiMe31uta" target="_blank">FastAPI_Flask Web开发</a></li>
+                    <li><a href="https://www.kdocs.cn/l/colMrlY5pSrE" target="_blank">Python脚本工具箱</a></li>
+                    <li><a href="https://www.kdocs.cn/l/caIXCnGqXXdD" target="_blank">AI与深度学习</a></li>
+                    <li><a href="https://www.kdocs.cn/l/ca4drUT4FsZF" target="_blank">数据分析与可视化</a></li>
+                    <li><a href="https://www.kdocs.cn/l/cq1uTAIFEbAv" target="_blank">自动化全栈实战</a></li>
                 </ul>
             </div>
             <div class="footer-column">
