@@ -41,6 +41,295 @@
             overflow-x: hidden;
             line-height: 1.7;
             font-size: 14px;
+            transition: background 0.3s, color 0.3s;
+        }
+
+        /* 深色模式 */
+        body.dark-mode {
+            --text-primary: #e0e0e0;
+            --text-secondary: #a0a0a0;
+            --text-light: #707070;
+            --bg-light: #1a1a2e;
+            --bg-white: #0f0f1a;
+            --border: #2a2a3e;
+        }
+
+        body.dark-mode .book-card,
+        body.dark-mode .contact-card,
+        body.dark-mode .desktop-card,
+        body.dark-mode .timeline-content {
+            background: #1a1a2e !important;
+            border-color: #2a2a3e !important;
+        }
+
+        body.dark-mode .book-header,
+        body.dark-mode .book-footer,
+        body.dark-mode .announcement {
+            background: #141428 !important;
+        }
+
+        body.dark-mode .books-section,
+        body.dark-mode .desktop-section,
+        body.dark-mode .contact-section {
+            background: #0a0a14 !important;
+        }
+
+        body.dark-mode .knowledge-section {
+            background: #0f0f1a !important;
+        }
+
+        /* 阅读进度条 */
+        .reading-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--china-red), var(--gold), var(--china-red));
+            z-index: 10000;
+            width: 0%;
+            transition: width 0.1s;
+            box-shadow: 0 0 10px var(--gold);
+        }
+
+        /* 浮动工具栏 */
+        .floating-toolbar {
+            position: fixed;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            z-index: 998;
+        }
+
+        .tool-btn {
+            width: 42px;
+            height: 42px;
+            background: linear-gradient(180deg, var(--china-red) 0%, var(--china-red-darker) 100%);
+            color: #fff;
+            border: 1px solid var(--gold);
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: all 0.3s;
+            box-shadow: 0 2px 10px rgba(168, 22, 28, 0.3);
+            position: relative;
+        }
+
+        .tool-btn:hover {
+            transform: translateX(-5px) scale(1.1);
+            box-shadow: 0 4px 20px rgba(168, 22, 28, 0.5);
+        }
+
+        .tool-btn .tooltip {
+            position: absolute;
+            right: 50px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: var(--dark);
+            color: #fff;
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-size: 12px;
+            white-space: nowrap;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s;
+            border: 1px solid var(--gold);
+        }
+
+        .tool-btn:hover .tooltip {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* 搜索弹窗 */
+        .search-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            z-index: 10001;
+            display: none;
+            justify-content: center;
+            align-items: flex-start;
+            padding-top: 100px;
+        }
+
+        .search-modal.active {
+            display: flex;
+        }
+
+        .search-box {
+            background: var(--bg-white);
+            border-radius: 8px;
+            width: 90%;
+            max-width: 600px;
+            padding: 25px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            border: 2px solid var(--gold);
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 15px 20px;
+            border: 2px solid var(--border);
+            border-radius: 4px;
+            font-size: 16px;
+            outline: none;
+            transition: border-color 0.3s;
+            background: var(--bg-white);
+            color: var(--text-primary);
+        }
+
+        .search-input:focus {
+            border-color: var(--china-red);
+        }
+
+        .search-results {
+            margin-top: 15px;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .search-result-item {
+            padding: 12px;
+            border-bottom: 1px solid var(--border);
+            cursor: pointer;
+            transition: background 0.3s;
+            border-radius: 4px;
+        }
+
+        .search-result-item:hover {
+            background: var(--bg-light);
+        }
+
+        .search-result-title {
+            font-weight: bold;
+            color: var(--china-red);
+            margin-bottom: 5px;
+        }
+
+        .search-result-desc {
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+
+        .search-close {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 28px;
+            color: #fff;
+            cursor: pointer;
+            background: none;
+            border: none;
+        }
+
+        /* 书籍筛选标签 */
+        .book-filters {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 8px 20px;
+            background: var(--bg-white);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.3s;
+            color: var(--text-secondary);
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: linear-gradient(180deg, var(--china-red) 0%, var(--china-red-darker) 100%);
+            color: #fff;
+            border-color: var(--gold);
+        }
+
+        /* Toast提示 */
+        .toast {
+            position: fixed;
+            top: 80px;
+            left: 50%;
+            transform: translateX(-50%) translateY(-100px);
+            background: linear-gradient(180deg, var(--china-red) 0%, var(--china-red-darker) 100%);
+            color: #fff;
+            padding: 12px 30px;
+            border-radius: 4px;
+            font-size: 14px;
+            z-index: 10002;
+            transition: transform 0.4s ease;
+            border: 1px solid var(--gold);
+            box-shadow: 0 4px 20px rgba(168, 22, 28, 0.4);
+        }
+
+        .toast.show {
+            transform: translateX(-50%) translateY(0);
+        }
+
+        /* 设备标识 */
+        .device-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: 4px 10px;
+            background: rgba(255,255,255,0.15);
+            border-radius: 3px;
+            font-size: 11px;
+            color: #fff;
+        }
+
+        /* 字体大小调整 */
+        body.font-large {
+            font-size: 16px;
+        }
+
+        body.font-large .book-title {
+            font-size: 17px;
+        }
+
+        body.font-small {
+            font-size: 12px;
+        }
+
+        body.font-small .book-title {
+            font-size: 13px;
+        }
+
+        /* 卡片3D效果 */
+        .book-card {
+            transform-style: preserve-3d;
+            perspective: 1000px;
+        }
+
+        /* 打印样式 */
+        @media print {
+            .intro-overlay,
+            .floating-toolbar,
+            .reading-progress,
+            .back-to-top,
+            .navbar,
+            .top-banner,
+            .search-modal,
+            .toast {
+                display: none !important;
+            }
+            body {
+                font-size: 12px;
+            }
         }
 
         /* ==================== 二进制代码雨进入页 ==================== */
@@ -1364,6 +1653,49 @@
     </style>
 </head>
 <body>
+    <!-- 阅读进度条 -->
+    <div class="reading-progress" id="readingProgress"></div>
+
+    <!-- Toast提示 -->
+    <div class="toast" id="toast">提示信息</div>
+
+    <!-- 搜索弹窗 -->
+    <div class="search-modal" id="searchModal">
+        <button class="search-close" onclick="closeSearch()">×</button>
+        <div class="search-box">
+            <input type="text" class="search-input" id="searchInput" placeholder="搜索书籍、知识体系..." oninput="handleSearch(this.value)">
+            <div class="search-results" id="searchResults"></div>
+        </div>
+    </div>
+
+    <!-- 浮动工具栏 -->
+    <div class="floating-toolbar">
+        <button class="tool-btn" onclick="toggleDarkMode()" title="深色模式">
+            <span id="darkModeIcon">🌙</span>
+            <span class="tooltip">深色/浅色模式</span>
+        </button>
+        <button class="tool-btn" onclick="toggleFontSize()" title="字体大小">
+            <span>🔤</span>
+            <span class="tooltip">字体大小</span>
+        </button>
+        <button class="tool-btn" onclick="openSearch()" title="搜索">
+            <span>🔍</span>
+            <span class="tooltip">搜索 (Ctrl+K)</span>
+        </button>
+        <button class="tool-btn" onclick="copyEmail()" title="复制邮箱">
+            <span>📋</span>
+            <span class="tooltip">复制邮箱</span>
+        </button>
+        <button class="tool-btn" onclick="window.print()" title="打印">
+            <span>🖨️</span>
+            <span class="tooltip">打印页面</span>
+        </button>
+        <button class="tool-btn" onclick="scrollToTop()" title="回到顶部">
+            <span>⬆️</span>
+            <span class="tooltip">回到顶部</span>
+        </button>
+    </div>
+
     <!-- ==================== 二进制代码雨进入页 ==================== -->
     <div class="intro-overlay" id="introOverlay">
         <canvas id="binaryCanvas"></canvas>
@@ -1393,6 +1725,12 @@
                 <span>权威 · 专业 · 系统 · 实战</span>
             </div>
             <div class="top-banner-right">
+                <span class="device-badge" id="deviceBadge">🖥️ 电脑端</span>
+                <span class="banner-sep">|</span>
+                <span id="currentTime" style="font-family: Consolas, monospace;">--:--:--</span>
+                <span class="banner-sep">|</span>
+                <span>访问: <span id="visitCount">1</span>次</span>
+                <span class="banner-sep">|</span>
                 <a href="#books">📚 精品书籍</a>
                 <span class="banner-sep">|</span>
                 <a href="#contact">📧 联系我们</a>
@@ -1496,9 +1834,19 @@
                 <h2 class="section-title">精品书籍</h2>
                 <p class="section-subtitle">权威发布 · 系统学习 · 实战导向 · 全栈覆盖</p>
             </div>
+            <div class="book-filters scroll-animate">
+                <button class="filter-btn active" onclick="filterBooks('all', this)">全部</button>
+                <button class="filter-btn" onclick="filterBooks('入门', this)">入门</button>
+                <button class="filter-btn" onclick="filterBooks('进阶', this)">进阶</button>
+                <button class="filter-btn" onclick="filterBooks('Web开发', this)">Web开发</button>
+                <button class="filter-btn" onclick="filterBooks('自动化', this)">自动化</button>
+                <button class="filter-btn" onclick="filterBooks('AI', this)">AI人工智能</button>
+                <button class="filter-btn" onclick="filterBooks('数据分析', this)">数据分析</button>
+                <button class="filter-btn" onclick="filterBooks('全栈', this)">全栈</button>
+            </div>
             <div class="books-grid">
                 <!-- 书籍1 -->
-                <div class="book-card scroll-animate">
+                <div class="book-card scroll-animate" data-category="入门">
                     <div class="book-header">
                         <div class="book-badge">入门</div>
                         <div class="book-icon">🐍</div>
@@ -1519,7 +1867,7 @@
                 </div>
 
                 <!-- 书籍2 -->
-                <div class="book-card scroll-animate">
+                <div class="book-card scroll-animate" data-category="进阶">
                     <div class="book-header">
                         <div class="book-badge">进阶</div>
                         <div class="book-icon">🚀</div>
@@ -1540,7 +1888,7 @@
                 </div>
 
                 <!-- 书籍3 -->
-                <div class="book-card scroll-animate">
+                <div class="book-card scroll-animate" data-category="Web开发">
                     <div class="book-header">
                         <div class="book-badge">Web开发</div>
                         <div class="book-icon">🌐</div>
@@ -1561,7 +1909,7 @@
                 </div>
 
                 <!-- 书籍4 -->
-                <div class="book-card scroll-animate">
+                <div class="book-card scroll-animate" data-category="自动化">
                     <div class="book-header">
                         <div class="book-badge">自动化</div>
                         <div class="book-icon">🛠️</div>
@@ -1582,7 +1930,7 @@
                 </div>
 
                 <!-- 书籍5 -->
-                <div class="book-card scroll-animate">
+                <div class="book-card scroll-animate" data-category="AI">
                     <div class="book-header">
                         <div class="book-badge">AI人工智能</div>
                         <div class="book-icon">🤖</div>
@@ -1603,7 +1951,7 @@
                 </div>
 
                 <!-- 书籍6 -->
-                <div class="book-card scroll-animate">
+                <div class="book-card scroll-animate" data-category="数据分析">
                     <div class="book-header">
                         <div class="book-badge">数据分析</div>
                         <div class="book-icon">📊</div>
@@ -1624,7 +1972,7 @@
                 </div>
 
                 <!-- 书籍7 -->
-                <div class="book-card scroll-animate">
+                <div class="book-card scroll-animate" data-category="全栈">
                     <div class="book-header">
                         <div class="book-badge">全栈</div>
                         <div class="book-icon">⚡</div>
@@ -2151,6 +2499,255 @@
                 if (target) {
                     target.scrollIntoView({ behavior: 'smooth', block: 'start' });
                 }
+            });
+        });
+
+        // ==================== 自动识别设备类型 ====================
+        function detectDevice() {
+            const ua = navigator.userAgent;
+            const width = window.innerWidth;
+            let deviceType = 'desktop';
+            let deviceIcon = '🖥️';
+            let deviceName = '电脑端';
+
+            if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(ua)) {
+                if (/iPad|Tablet/i.test(ua) || (width >= 768 && width < 1024)) {
+                    deviceType = 'tablet';
+                    deviceIcon = '📱';
+                    deviceName = '平板端';
+                } else {
+                    deviceType = 'mobile';
+                    deviceIcon = '📱';
+                    deviceName = '手机端';
+                }
+            } else if (width < 768) {
+                deviceType = 'mobile';
+                deviceIcon = '📱';
+                deviceName = '手机端';
+            }
+
+            const badge = document.getElementById('deviceBadge');
+            if (badge) {
+                badge.innerHTML = deviceIcon + ' ' + deviceName;
+            }
+
+            console.log('设备识别:', deviceType, deviceName);
+            return deviceType;
+        }
+        detectDevice();
+        window.addEventListener('resize', detectDevice);
+
+        // ==================== 深色/浅色模式切换 ====================
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark-mode');
+            const isDark = document.body.classList.contains('dark-mode');
+            localStorage.setItem('darkMode', isDark ? 'true' : 'false');
+            document.getElementById('darkModeIcon').textContent = isDark ? '☀️' : '🌙';
+            showToast(isDark ? '已切换到深色模式' : '已切换到浅色模式');
+        }
+
+        // 加载保存的主题
+        if (localStorage.getItem('darkMode') === 'true') {
+            document.body.classList.add('dark-mode');
+            document.getElementById('darkModeIcon').textContent = '☀️';
+        }
+
+        // ==================== 字体大小调整 ====================
+        let fontLevel = 1; // 0=小, 1=中, 2=大
+        function toggleFontSize() {
+            fontLevel = (fontLevel + 1) % 3;
+            document.body.classList.remove('font-small', 'font-large');
+            if (fontLevel === 0) {
+                document.body.classList.add('font-small');
+                showToast('字体：小');
+            } else if (fontLevel === 2) {
+                document.body.classList.add('font-large');
+                showToast('字体：大');
+            } else {
+                showToast('字体：中');
+            }
+            localStorage.setItem('fontLevel', fontLevel);
+        }
+
+        // 加载保存的字体大小
+        const savedFont = localStorage.getItem('fontLevel');
+        if (savedFont) {
+            fontLevel = parseInt(savedFont);
+            if (fontLevel === 0) document.body.classList.add('font-small');
+            if (fontLevel === 2) document.body.classList.add('font-large');
+        }
+
+        // ==================== 阅读进度条 ====================
+        window.addEventListener('scroll', function() {
+            const scrollTop = window.scrollY;
+            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const progress = (scrollTop / docHeight) * 100;
+            document.getElementById('readingProgress').style.width = progress + '%';
+        });
+
+        // ==================== Toast提示 ====================
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.classList.add('show');
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 2500);
+        }
+
+        // ==================== 复制邮箱 ====================
+        function copyEmail() {
+            const email = 'programmingscience@foxmail.com';
+            navigator.clipboard.writeText(email).then(() => {
+                showToast('邮箱已复制到剪贴板！');
+            }).catch(() => {
+                // 降级方案
+                const textarea = document.createElement('textarea');
+                textarea.value = email;
+                document.body.appendChild(textarea);
+                textarea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textarea);
+                showToast('邮箱已复制到剪贴板！');
+            });
+        }
+
+        // ==================== 实时时间 ====================
+        function updateTime() {
+            const now = new Date();
+            const h = String(now.getHours()).padStart(2, '0');
+            const m = String(now.getMinutes()).padStart(2, '0');
+            const s = String(now.getSeconds()).padStart(2, '0');
+            document.getElementById('currentTime').textContent = h + ':' + m + ':' + s;
+        }
+        updateTime();
+        setInterval(updateTime, 1000);
+
+        // ==================== 访问计数 ====================
+        let visits = parseInt(localStorage.getItem('visitCount') || '0');
+        visits++;
+        localStorage.setItem('visitCount', visits);
+        document.getElementById('visitCount').textContent = visits;
+
+        // ==================== 书籍筛选 ====================
+        function filterBooks(category, btn) {
+            const cards = document.querySelectorAll('.book-card');
+            cards.forEach(card => {
+                if (category === 'all' || card.dataset.category === category) {
+                    card.style.display = 'block';
+                    setTimeout(() => card.style.opacity = '1', 10);
+                } else {
+                    card.style.opacity = '0';
+                    setTimeout(() => card.style.display = 'none', 300);
+                }
+            });
+
+            // 更新按钮状态
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+        }
+
+        // ==================== 搜索功能 ====================
+        const searchData = [
+            { title: 'Python入门到项目实战', desc: '零基础入门 · 系统学习 · 项目实战', url: 'https://www.kdocs.cn/l/cibV2nUtjcCf', category: '入门' },
+            { title: 'Python进阶实战', desc: '进阶提升 · 项目驱动 · 企业级开发', url: 'https://www.kdocs.cn/l/chRxLQ3m8cqr', category: '进阶' },
+            { title: 'FastAPI_Flask Web开发', desc: '从零搭建企业级网站与API', url: 'https://www.kdocs.cn/l/cgKEiMe31uta', category: 'Web开发' },
+            { title: 'Python脚本工具箱', desc: '万能自动化开发实战全书', url: 'https://www.kdocs.cn/l/colMrlY5pSrE', category: '自动化' },
+            { title: 'Python人工智能与深度学习', desc: '零基础实战 · 从入门到精通', url: 'https://www.kdocs.cn/l/caIXCnGqXXdD', category: 'AI' },
+            { title: 'Python数据分析与可视化', desc: '从零基础到商业报表实战', url: 'https://www.kdocs.cn/l/ca4drUT4FsZF', category: '数据分析' },
+            { title: 'Python自动化全栈实战', desc: '全栈开发 · 自动化运维 · 项目实战', url: 'https://www.kdocs.cn/l/cq1uTAIFEbAv', category: '全栈' },
+            { title: '知识体系 - Python基础入门', desc: '第一阶段：学习Python基础语法、变量、数据类型等', url: '#knowledge', category: '知识体系' },
+            { title: '知识体系 - 面向对象编程', desc: '第二阶段：类与对象、继承、多态、封装、设计模式', url: '#knowledge', category: '知识体系' },
+            { title: '知识体系 - 高级特性与进阶', desc: '第三阶段：迭代器、生成器、装饰器、并发编程等', url: '#knowledge', category: '知识体系' },
+            { title: '知识体系 - 项目实战开发', desc: '第四阶段：Web开发、数据分析、自动化脚本等实战', url: '#knowledge', category: '知识体系' },
+            { title: '知识体系 - 企业级开发能力', desc: '第五阶段：数据库设计、API开发、测试驱动、部署', url: '#knowledge', category: '知识体系' },
+            { title: '电脑版专区', desc: '桌面端专属优化展示，大屏浏览体验更佳', url: '#desktop', category: '专区' },
+            { title: '联系我们', desc: '官方邮箱：programmingscience@foxmail.com', url: '#contact', category: '联系' }
+        ];
+
+        function openSearch() {
+            document.getElementById('searchModal').classList.add('active');
+            document.getElementById('searchInput').focus();
+            handleSearch('');
+        }
+
+        function closeSearch() {
+            document.getElementById('searchModal').classList.remove('active');
+            document.getElementById('searchInput').value = '';
+        }
+
+        function handleSearch(query) {
+            const results = document.getElementById('searchResults');
+            if (!query.trim()) {
+                results.innerHTML = '<div style="text-align:center;color:var(--text-light);padding:20px;">输入关键词搜索书籍、知识体系等内容</div>';
+                return;
+            }
+
+            const q = query.toLowerCase();
+            const matched = searchData.filter(item =>
+                item.title.toLowerCase().includes(q) ||
+                item.desc.toLowerCase().includes(q) ||
+                item.category.toLowerCase().includes(q)
+            );
+
+            if (matched.length === 0) {
+                results.innerHTML = '<div style="text-align:center;color:var(--text-light);padding:20px;">未找到相关内容</div>';
+                return;
+            }
+
+            results.innerHTML = matched.map(item =>
+                '<div class="search-result-item" onclick="window.open(\'' + item.url + '\', \'_blank\'); closeSearch();">' +
+                '<div class="search-result-title">' + item.title + ' <span style="font-size:11px;color:var(--gold);">[' + item.category + ']</span></div>' +
+                '<div class="search-result-desc">' + item.desc + '</div>' +
+                '</div>'
+            ).join('');
+        }
+
+        // 点击搜索弹窗外部关闭
+        document.getElementById('searchModal').addEventListener('click', function(e) {
+            if (e.target === this) closeSearch();
+        });
+
+        // ==================== 键盘快捷键 ====================
+        document.addEventListener('keydown', function(e) {
+            // Ctrl+K 打开搜索
+            if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+                e.preventDefault();
+                openSearch();
+            }
+            // ESC 关闭搜索
+            if (e.key === 'Escape') {
+                closeSearch();
+            }
+            // Ctrl+D 深色模式
+            if ((e.ctrlKey || e.metaKey) && e.key === 'd') {
+                e.preventDefault();
+                toggleDarkMode();
+            }
+            // 数字键 1-5 跳转到对应区域
+            if (!e.ctrlKey && !e.metaKey && !e.altKey && !isNaN(e.key) && e.key >= '1' && e.key <= '5') {
+                const sections = ['#home', '#books', '#knowledge', '#desktop', '#about'];
+                const idx = parseInt(e.key) - 1;
+                if (sections[idx]) {
+                    document.querySelector(sections[idx]).scrollIntoView({ behavior: 'smooth' });
+                }
+            }
+        });
+
+        // ==================== 卡片3D悬停效果 ====================
+        document.querySelectorAll('.book-card').forEach(card => {
+            card.addEventListener('mousemove', function(e) {
+                const rect = this.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                const rotateX = (y - centerY) / 20;
+                const rotateY = (centerX - x) / 20;
+                this.style.transform = 'perspective(1000px) rotateX(' + rotateX + 'deg) rotateY(' + rotateY + 'deg) translateY(-5px)';
+            });
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateY(0)';
             });
         });
 
